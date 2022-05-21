@@ -1,11 +1,9 @@
-
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Cows table</title>
+    <title>Farms List</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -142,7 +140,7 @@
         <div class="table-wrapper">
             <div class="table-title">
                 <div class="row">
-                    <div class="col-sm-8"><h2>Cow <b>Details</b></h2></div>
+                    <div class="col-sm-8"><h2>All <b>Farms</b></h2></div>
                     <div class="col-sm-4">
                         <div class="search-box">
                             <i class="material-icons">&#xE8B6;</i>
@@ -154,28 +152,20 @@
             <table class="table table-striped table-hover table-bordered">
                 <thead>
                 <tr>
-                    <th>Number<i class="fa fa-sort"></i></th>
-                    <th>Birth</th>
-                    <th>Is Alive</th>
-                    <th>Death</th>
-                    <th>Section<i class="fa fa-sort"></i></th>
-                    <th>Lactation</th>
-                    <th>Is Milking</th>
-                    <th>Is Inseminated</th>
+                    <th>Name<i class="fa fa-sort"></i></th>
+                    <th>Email</th>
+                    <th>Address</th>
+                    <th>Owner</th>
                 </tr>
                 </thead>
                 <tbody>
-                <!--/*@thymesVar id="cows" type="java.util.List"*/-->
-                <!--/*@thymesVar id="cow" type="ua.vspelykh.dairyfarm.model.entity.Cow"*/-->
-                <tr th:each="cow: ${cows}">
-                    <td th:text="${cow.number}"></td>
-                    <td th:text="${cow.birth}"></td>
-                    <td th:text="${cow.isAlive}"></td>
-                    <td th:text="${cow.death}"></td>
-                    <td th:text="${cow.section}"></td>
-                    <td th:text="${cow.lactation}"></td>
-                    <td th:text="${cow.isMilking}"></td>
-                    <td th:text="${cow.isInseminated}"></td>
+                <!--/*@thymesVar id="farms" type="java.util.List"*/-->
+                <!--/*@thymesVar id="farm" type="ua.vspelykh.dairyfarm.model.entity.Farm"*/-->
+                <tr th:each="farm: ${farms}">
+                    <td th:text="${farm.name}"></td>
+                    <td th:text="${farm.email}"></td>
+                    <td th:text="${farm.address}"></td>
+                    <td th:text="${farm.owner}"></td>
                 </tr>
                 </tbody>
             </table>

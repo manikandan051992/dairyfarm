@@ -125,4 +125,15 @@ public class Cow extends AbstractBaseEntity {
                 ", isMilking=" + isMilking +
                 '}';
     }
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private Farm farm;
+
+    public Farm getFarm() {
+        return farm;
+    }
+
+    public void setFarm(Farm farm) {
+        this.farm = farm;
+    }
 }

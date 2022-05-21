@@ -2,7 +2,7 @@ package ua.vspelykh.dairyfarm.service;
 
 import org.springframework.stereotype.Service;
 import ua.vspelykh.dairyfarm.model.entity.Cow;
-import ua.vspelykh.dairyfarm.repository.CowRepository;
+import ua.vspelykh.dairyfarm.repository.cows.CowRepository;
 
 import java.util.List;
 

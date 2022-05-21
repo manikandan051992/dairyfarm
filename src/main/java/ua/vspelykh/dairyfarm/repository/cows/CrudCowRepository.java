@@ -1,4 +1,4 @@
-package ua.vspelykh.dairyfarm.repository;
+package ua.vspelykh.dairyfarm.repository.cows;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import ua.vspelykh.dairyfarm.model.entity.Cow;
