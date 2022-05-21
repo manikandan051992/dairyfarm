@@ -1,7 +1,6 @@
 package ua.vspelykh.dairyfarm.repository;
 
-import org.springframework.stereotype.Repository;
-import ua.vspelykh.dairyfarm.model.Cow;
+import ua.vspelykh.dairyfarm.model.entity.Cow;
 
 import java.util.List;
 

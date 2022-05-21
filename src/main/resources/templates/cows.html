@@ -154,22 +154,28 @@
             <table class="table table-striped table-hover table-bordered">
                 <thead>
                 <tr>
-                    <th>Id<i class="fa fa-sort"></i></th>
-                    <th>Number</th>
+                    <th>Number<i class="fa fa-sort"></i></th>
                     <th>Birth</th>
+                    <th>Is Alive</th>
+                    <th>Death</th>
                     <th>Section<i class="fa fa-sort"></i></th>
+                    <th>Lactation</th>
                     <th>Is Milking</th>
+                    <th>Is Inseminated</th>
                 </tr>
                 </thead>
                 <tbody>
-                <!--/*@thymesVar id="cow" type="ua.vspelykh.dairyfarm.model.Cow"*/-->
+                <!--/*@thymesVar id="cow" type="ua.vspelykh.dairyfarm.model.entity.Cow"*/-->
                 <!--/*@thymesVar id="cows" type="java.util.List"*/-->
                 <tr th:each="cow: ${cows}">
-                    <td th:text="${cow.id}"></td>
                     <td th:text="${cow.number}"></td>
                     <td th:text="${cow.birth}"></td>
+                    <td th:text="${cow.isAlive}"></td>
+                    <td th:text="${cow.death}"></td>
                     <td th:text="${cow.section}"></td>
+                    <td th:text="${cow.lactation}"></td>
                     <td th:text="${cow.isMilking}"></td>
+                    <td th:text="${cow.isInseminated}"></td>
                 </tr>
                 </tbody>
             </table>

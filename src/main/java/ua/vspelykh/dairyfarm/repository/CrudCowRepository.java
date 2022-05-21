@@ -1,8 +1,7 @@
 package ua.vspelykh.dairyfarm.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
-import ua.vspelykh.dairyfarm.model.Cow;
+import ua.vspelykh.dairyfarm.model.entity.Cow;
 
 import javax.transaction.Transactional;
 
