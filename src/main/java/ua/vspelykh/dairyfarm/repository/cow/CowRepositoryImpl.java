@@ -1,6 +1,7 @@
 package ua.vspelykh.dairyfarm.repository.cow;
 
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 import ua.vspelykh.dairyfarm.model.entity.Cow;
 import ua.vspelykh.dairyfarm.repository.farm.CrudFarmRepository;
 
@@ -18,13 +19,16 @@ public class CowRepositoryImpl implements CowRepository {
     }
 
     public Cow getOne(int id, int farmId){
-        return cowRepository.getReferenceById(id);
+        return cowRepository.findById(id)
+                .filter(cow -> cow.getFarm().getId() == farmId)
+                .orElse(null);
     }
 
     public List<Cow> getAll(Integer farmId){
         return cowRepository.getAllByFarmId(farmId);
     }
 
+    @Transactional
     public Cow save(Cow cow, int farmId){
         if (!cow.isNew() && getOne(cow.getId(), farmId) == null){
             return null;
