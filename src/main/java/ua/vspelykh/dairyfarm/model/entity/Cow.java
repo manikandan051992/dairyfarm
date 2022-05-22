@@ -2,11 +2,15 @@ package ua.vspelykh.dairyfarm.model.entity;
 
 import org.hibernate.validator.constraints.Range;
 import ua.vspelykh.dairyfarm.model.AbstractBaseEntity;
+import ua.vspelykh.dairyfarm.model.record.Calving;
+import ua.vspelykh.dairyfarm.model.record.Insemination;
+import ua.vspelykh.dairyfarm.model.record.Vaccination;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.Collection;
 
 @Entity
 @Table(name = "cows")
@@ -40,6 +44,9 @@ public class Cow extends AbstractBaseEntity {
     @Column(name = "is_inseminated", nullable = false)
     @NotNull
     private boolean isInseminated;
+
+    @OneToMany(mappedBy = "cow")
+    private Collection<Vaccination> vaccinations;
 
     public Cow() {
     }
@@ -129,11 +136,42 @@ public class Cow extends AbstractBaseEntity {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     private Farm farm;
 
+    @OneToMany(mappedBy = "cow")
+    private Collection<Insemination> inseminations;
+
     public Farm getFarm() {
         return farm;
     }
 
     public void setFarm(Farm farm) {
         this.farm = farm;
+    }
+
+    public Collection<Vaccination> getVaccinations() {
+        return vaccinations;
+    }
+
+    public void setVaccinations(Collection<Vaccination> vaccinations) {
+        this.vaccinations = vaccinations;
+    }
+
+
+    public Collection<Insemination> getInseminations() {
+        return inseminations;
+    }
+
+    public void setInseminations(Collection<Insemination> inseminations) {
+        this.inseminations = inseminations;
+    }
+
+    @OneToMany(mappedBy = "cow")
+    private Collection<Calving> calvings;
+
+    public Collection<Calving> getCalvings() {
+        return calvings;
+    }
+
+    public void setCalvings(Collection<Calving> calvings) {
+        this.calvings = calvings;
     }
 }

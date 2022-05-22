@@ -1,9 +1,13 @@
 package ua.vspelykh.dairyfarm.model.entity;
 
 import ua.vspelykh.dairyfarm.model.AbstractBaseEntity;
+import ua.vspelykh.dairyfarm.model.record.Calving;
+import ua.vspelykh.dairyfarm.model.record.Insemination;
+import ua.vspelykh.dairyfarm.model.record.Vaccination;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.util.Collection;
 
 @Entity
 @Table(name = "users")
@@ -41,6 +45,12 @@ public class User extends AbstractBaseEntity {
 
     @ManyToOne(optional = false)
     private Farm farm;
+
+    @OneToMany(mappedBy = "user")
+    private Collection<Vaccination> vaccinations;
+
+    @OneToMany(mappedBy = "user")
+    private Collection<Insemination> inseminations;
 
     public User() {
     }
@@ -99,5 +109,35 @@ public class User extends AbstractBaseEntity {
 
     public void setFarm(Farm farm) {
         this.farm = farm;
+    }
+
+
+
+    public Collection<Vaccination> getVaccinations() {
+        return vaccinations;
+    }
+
+    public void setVaccinations(Collection<Vaccination> vaccinations) {
+        this.vaccinations = vaccinations;
+    }
+
+
+    public Collection<Insemination> getInseminations() {
+        return inseminations;
+    }
+
+    public void setInseminations(Collection<Insemination> inseminations) {
+        this.inseminations = inseminations;
+    }
+
+    @OneToMany(mappedBy = "user")
+    private Collection<Calving> calvings;
+
+    public Collection<Calving> getCalvings() {
+        return calvings;
+    }
+
+    public void setCalvings(Collection<Calving> calvings) {
+        this.calvings = calvings;
     }
 }
