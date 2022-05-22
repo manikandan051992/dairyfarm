@@ -4,11 +4,11 @@ public class SecurityUtil {
 
 
     public static int getAuthUserId(){
-        return 1;
+        return 2;
     }
 
     public static int getAuthFarmId(){
-        return 2;
+        return 1;
     }
 
 

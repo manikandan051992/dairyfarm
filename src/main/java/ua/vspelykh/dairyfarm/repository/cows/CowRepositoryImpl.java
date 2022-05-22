@@ -2,39 +2,42 @@ package ua.vspelykh.dairyfarm.repository.cows;
 
 import org.springframework.stereotype.Repository;
 import ua.vspelykh.dairyfarm.model.entity.Cow;
+import ua.vspelykh.dairyfarm.repository.farm.CrudFarmRepository;
 
 import java.util.List;
 
 @Repository
-public class CowRepositoryImpl implements CowRepository{
+public class CowRepositoryImpl implements CowRepository {
 
     private final CrudCowRepository cowRepository;
+    private final CrudFarmRepository farmRepository;
 
-    public CowRepositoryImpl(CrudCowRepository cowRepository) {
-        this.cowRepository = cowRepository;
+    public CowRepositoryImpl(CrudCowRepository crudCowRepository, CrudFarmRepository farmRepository) {
+        this.cowRepository = crudCowRepository;
+        this.farmRepository = farmRepository;
     }
 
-    @Override
-    public Cow getOne(int id) {
+    public Cow getOne(int id, int farmId){
         return cowRepository.getReferenceById(id);
     }
 
-    @Override
-    public List<Cow> getAll() {
-        return cowRepository.findAll();
+    public List<Cow> getAll(Integer farmId){
+        return cowRepository.getAllByFarmId(farmId);
     }
 
-    @Override
-    public Cow save(Cow cow) {
+    public Cow save(Cow cow, int farmId){
+        if (!cow.isNew() && getOne(cow.getId(), farmId) == null){
+            return null;
+        }
+        cow.setFarm(farmRepository.getReferenceById(farmId));
         return cowRepository.save(cow);
     }
 
-    @Override
-    public boolean delete(int id) {
-        if (getOne(id) !=null) {
-            cowRepository.delete(getOne(id));
-            return true;
-        }
-        return false;
+    public boolean delete(int id, int farmId){
+        return cowRepository.delete(id, farmId) != 0;
     }
+
+//    public Cow getWithFullInfo(int id, int farmId){
+//        return cowRepository.getCowWithFullInfo(id, farmId);
+//    }
 }

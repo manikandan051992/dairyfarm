@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ua.vspelykh.dairyfarm.service.CowService;
+import ua.vspelykh.dairyfarm.util.SecurityUtil;
 
 @Controller
 @RequestMapping("/cows")
@@ -19,7 +20,7 @@ public class CowController {
 
     @GetMapping
     public String cows(Model model) {
-        model.addAttribute("cows", cowService.getAll());
+        model.addAttribute("cows", cowService.getAll(SecurityUtil.getAuthFarmId()));
         return "cows.html";
     }
 }
