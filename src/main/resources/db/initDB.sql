@@ -1,4 +1,10 @@
+DROP TABLE IF EXISTS calving;
+DROP TABLE IF EXISTS insemination;
+DROP TABLE IF EXISTS vaccinations;
+DROP TABLE IF EXISTS vaccines;
+DROP TABLE IF EXISTS user_roles;
 DROP TABLE IF EXISTS cows;
+DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS farms;
 
 DROP SEQUENCE IF EXISTS global_seq;
@@ -13,6 +19,21 @@ CREATE TABLE farms
     address VARCHAR NOT NULL,
     owner   VARCHAR NOT NULL
 );
+CREATE UNIQUE INDEX farm_unique_index ON farms (email);
+
+
+CREATE TABLE users
+(
+    id       INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+    farm_id  INTEGER NOT NULL,
+    name     VARCHAR NOT NULL,
+    number   VARCHAR NOT NULL,
+    email    VARCHAR NOT NULL,
+    role     VARCHAR NOT NULL,
+    password VARCHAR NOT NULL,
+    FOREIGN KEY (farm_id) REFERENCES farms (id) ON DELETE CASCADE
+);
+
 
 CREATE TABLE cows
 (

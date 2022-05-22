@@ -31,6 +31,12 @@ public class Farm extends AbstractBaseEntity {
     @Size(max = 128)
     private String owner;
 
+    @OneToMany(mappedBy = "farm")
+    private Collection<User> users;
+
+    @OneToMany(mappedBy = "farm")
+    private Collection<Cow> cows;
+
     public Farm() {
     }
 
@@ -73,8 +79,13 @@ public class Farm extends AbstractBaseEntity {
         this.owner = owner;
     }
 
-    @OneToMany(mappedBy = "farm")
-    private Collection<Cow> cows;
+    public Collection<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Collection<User> users) {
+        this.users = users;
+    }
 
     public Collection<Cow> getCows() {
         return cows;

@@ -1,4 +1,4 @@
-package ua.vspelykh.dairyfarm.repository.cows;
+package ua.vspelykh.dairyfarm.repository.cow;
 
 import ua.vspelykh.dairyfarm.model.entity.Cow;
 

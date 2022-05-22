@@ -3,7 +3,7 @@ package ua.vspelykh.dairyfarm.service;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import ua.vspelykh.dairyfarm.model.entity.Cow;
-import ua.vspelykh.dairyfarm.repository.cows.CowRepository;
+import ua.vspelykh.dairyfarm.repository.cow.CowRepository;
 
 import java.util.List;
 
