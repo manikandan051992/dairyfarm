@@ -1,5 +1,6 @@
 package ua.vspelykh.dairyfarm.repository.cow;
 
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -21,8 +22,8 @@ public interface CrudCowRepository extends JpaRepository<Cow, Integer> {
     @Query("DELETE FROM Cow c WHERE c.id=?1 AND  c.farm.id=?2")
     int delete(@Param("id") int id, @Param("farmId") int farmId);
 
-//    @EntityGraph(attributePaths = {"inseminationList, calving, vaccines"}, type = EntityGraph.EntityGraphType.LOAD)
-//    @Query("SELECT c FROM Cow c WHERE c.id=?1 AND c.farm.id=?2")
-//    Cow getCowWithFullInfo(int id, int farmId);
+    @EntityGraph(attributePaths = {"inseminationList, calving, vaccines"}, type = EntityGraph.EntityGraphType.LOAD)
+    @Query("SELECT c FROM Cow c WHERE c.id=?1 AND c.farm.id=?2")
+    Cow getCowWithFullInfo(int id, int farmId);
 
 }

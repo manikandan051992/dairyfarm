@@ -14,7 +14,5 @@ public interface CowRepository {
 
     boolean delete(int id, int farmId);
 
-    default Cow getWithFullInfo(int id, int farmId){
-        throw new UnsupportedOperationException();
-    }
+    Cow getWithFullInfo(int id, int farmId);
 }

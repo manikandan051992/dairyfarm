@@ -37,7 +37,8 @@ public class CowRepositoryImpl implements CowRepository {
         return cowRepository.delete(id, farmId) != 0;
     }
 
-//    public Cow getWithFullInfo(int id, int farmId){
-//        return cowRepository.getCowWithFullInfo(id, farmId);
-//    }
+    @Override
+    public Cow getWithFullInfo(int id, int farmId){
+        return cowRepository.getCowWithFullInfo(id, farmId);
+    }
 }

@@ -22,10 +22,10 @@ public class CowService {
         return checkNotFoundWithId(repository.getOne(id, farmId), id);
     }
 
-//    public Cow getWithFullInfo(int id, int farmId){
-//        checkNotFoundWithId(repository.getOne(id, farmId), id);
-//        return repository.getWithFullInfo(id, farmId);
-//    }
+    public Cow getWithFullInfo(int id, int farmId){
+        checkNotFoundWithId(repository.getOne(id, farmId), id);
+        return repository.getWithFullInfo(id, farmId);
+    }
 
     public void delete(int id, int farmId) {
         checkNotFoundWithId(repository.delete(id, farmId), id);
