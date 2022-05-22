@@ -37,25 +37,22 @@ import javax.sql.DataSource;
 
 
 @Configuration
-@EnableTransactionManagement
-@ComponentScan("ua.vspelykh.dairyfarm")
-//@EnableJpaRepositories(basePackages = "ua.vspelykh.dairyfarm.repository")
 public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
     private ApplicationContext applicationContext;
 
 
-    @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
-        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(dataSource());
-        em.setPackagesToScan("ua.vspelykh.dairyfarm.model");
-
-        JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        em.setJpaVendorAdapter(vendorAdapter);
-        em.setJpaProperties(additionalProperties());
-
-        return em;
-    }
+//    @Bean
+//    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+//        LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
+//        em.setDataSource(dataSource());
+//        em.setPackagesToScan("ua.vspelykh.dairyfarm.model");
+//
+//        JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
+//        em.setJpaVendorAdapter(vendorAdapter);
+//        em.setJpaProperties(additionalProperties());
+//
+//        return em;
+//    }
 
     @Bean
     public DataSource dataSource() {
@@ -74,19 +71,19 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
         return properties;
     }
 
-    @Bean
-    public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
-        return new PersistenceExceptionTranslationPostProcessor();
-    }
+//    @Bean
+//    public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
+//        return new PersistenceExceptionTranslationPostProcessor();
+//    }
 
 
-    @Bean
-    public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
-        JpaTransactionManager transactionManager = new JpaTransactionManager();
-        transactionManager.setEntityManagerFactory(emf);
-
-        return transactionManager;
-    }
+//    @Bean
+//    public PlatformTransactionManager transactionManager(EntityManagerFactory emf) {
+//        JpaTransactionManager transactionManager = new JpaTransactionManager();
+//        transactionManager.setEntityManagerFactory(emf);
+//
+//        return transactionManager;
+//    }
 
 //    @Override
 //    public void addResourceHandlers(ResourceHandlerRegistry registry) {
