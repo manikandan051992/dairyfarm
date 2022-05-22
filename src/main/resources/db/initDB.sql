@@ -50,3 +50,45 @@ CREATE TABLE cows
     FOREIGN KEY (farm_id) REFERENCES farms (id) ON DELETE CASCADE
 );
 CREATE UNIQUE INDEX cows_unique_index ON cows (number);
+
+CREATE TABLE calving
+(
+    id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+    user_id    INTEGER   NOT NULL,
+    cow_number VARCHAR   NOT NULL,
+    date       TIMESTAMP NOT NULL,
+    comment    VARCHAR   NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
+    FOREIGN KEY (cow_number) REFERENCES cows (number) ON DELETE CASCADE
+);
+
+CREATE TABLE insemination
+(
+    id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+    user_id    INTEGER   NOT NULL,
+    cow_number VARCHAR   NOT NULL,
+    date       TIMESTAMP NOT NULL,
+    comment    VARCHAR   NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
+    FOREIGN KEY (cow_number) REFERENCES cows (number) ON DELETE CASCADE
+);
+
+CREATE TABLE vaccines
+(
+    id      INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+    name    VARCHAR NOT NULL,
+    company VARCHAR NOT NULL
+);
+
+CREATE TABLE vaccinations
+(
+    id         INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
+    user_id    INTEGER   NOT NULL,
+    cow_number VARCHAR   NOT NULL,
+    date       TIMESTAMP NOT NULL,
+    vaccine_id INTEGER   NOT NULL,
+    comment    VARCHAR   NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
+    FOREIGN KEY (cow_number) REFERENCES cows (number) ON DELETE CASCADE,
+    FOREIGN KEY (vaccine_id) REFERENCES vaccines (id) ON DELETE CASCADE
+);
