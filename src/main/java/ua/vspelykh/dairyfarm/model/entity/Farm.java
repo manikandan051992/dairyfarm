@@ -94,4 +94,12 @@ public class Farm extends AbstractBaseEntity {
     public void setCows(Collection<Cow> cows) {
         this.cows = cows;
     }
+
+    @Override
+    public String toString() {
+        return "Farm{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }

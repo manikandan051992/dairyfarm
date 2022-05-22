@@ -37,4 +37,12 @@ public class Insemination extends AbstractRecord {
     public void setUser(User user) {
         this.user = user;
     }
+
+    @Override
+    public String toString() {
+        return "Insemination{" +
+                "id=" + id +
+                ", cow=" + cow +
+                '}';
+    }
 }

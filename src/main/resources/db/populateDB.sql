@@ -22,13 +22,13 @@ VALUES ('9246', '2018-01-30 10:00:00', true, null, 9, 2, true, true, 1),
        ('9391', '05.01.2020 12:11', true, null, 12, 3, true, true, 1),
        ('3333', '07.01.2020 10:10', true, null, 12, 3, true, true, 1);
 
-INSERT INTO calving (user_id, cow_number, date, comment)
-values ('2', '9246', '2022-04-06 10:00:00', 'without problems');
+INSERT INTO calving (user_id, cow_id, date, comment)
+values ('2', '3', '2022-04-06 10:00:00', 'without problems');
 
 INSERT INTO vaccines (id, name, company) VALUES (7, 'test vaccine', 'UVT');
 
-INSERT INTO vaccinations (user_id, cow_number, date, vaccine_id, comment)
-VALUES ('2', 9246, '2022-01-30 10:00:00', 7, 'success');
+INSERT INTO vaccinations (user_id, cow_id, date, vaccine_id, comment)
+VALUES ('2', 3, '2022-01-30 10:00:00', 7, 'success');
 
-INSERT INTO insemination (user_id, cow_number, date, comment)
-VALUES ('2', '9246', '2021-01-30 10:00:00', 'success');
+INSERT INTO insemination (user_id, cow_id, date, comment)
+VALUES ('2', '3', '2021-01-30 10:00:00', 'success');

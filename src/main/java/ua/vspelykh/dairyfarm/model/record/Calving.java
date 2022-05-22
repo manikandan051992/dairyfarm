@@ -32,4 +32,12 @@ public class Calving extends AbstractRecord {
     public void setUser(User user) {
         this.user = user;
     }
+
+    @Override
+    public String toString() {
+        return "Calving{" +
+                "cow=" + cow +
+                ", user=" + user +
+                '}';
+    }
 }

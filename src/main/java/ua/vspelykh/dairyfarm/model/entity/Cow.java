@@ -12,9 +12,16 @@ import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.Collection;
 
+@NamedQueries({
+        @NamedQuery(name = Cow.ALL_SORTED, query = "SELECT c FROM Cow c WHERE c.farm.id=:farmId ORDER BY c.birth DESC"),
+        @NamedQuery(name = Cow.DELETE, query = "DELETE FROM Cow c WHERE c.id=:id AND c.farm.id=:farmId"),
+})
 @Entity
 @Table(name = "cows")
 public class Cow extends AbstractBaseEntity {
+
+    public static final String ALL_SORTED = "Cow.getAllByFarmId";
+    public static final String DELETE = "Cow.delete";
 
     @Column(name = "number", nullable = false, unique = true)
     @Size(max = 8)
@@ -45,8 +52,17 @@ public class Cow extends AbstractBaseEntity {
     @NotNull
     private boolean isInseminated;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private Farm farm;
+
+    @OneToMany(mappedBy = "cow")
+    private Collection<Insemination> inseminations;
+
     @OneToMany(mappedBy = "cow")
     private Collection<Vaccination> vaccinations;
+
+    @OneToMany(mappedBy = "cow")
+    private Collection<Calving> calvings;
 
     public Cow() {
     }
@@ -133,12 +149,6 @@ public class Cow extends AbstractBaseEntity {
                 '}';
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Farm farm;
-
-    @OneToMany(mappedBy = "cow")
-    private Collection<Insemination> inseminations;
-
     public Farm getFarm() {
         return farm;
     }
@@ -164,8 +174,6 @@ public class Cow extends AbstractBaseEntity {
         this.inseminations = inseminations;
     }
 
-    @OneToMany(mappedBy = "cow")
-    private Collection<Calving> calvings;
 
     public Collection<Calving> getCalvings() {
         return calvings;
@@ -174,4 +182,6 @@ public class Cow extends AbstractBaseEntity {
     public void setCalvings(Collection<Calving> calvings) {
         this.calvings = calvings;
     }
+
+
 }
