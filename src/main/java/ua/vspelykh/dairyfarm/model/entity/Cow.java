@@ -1,6 +1,8 @@
 package ua.vspelykh.dairyfarm.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.validator.constraints.Range;
+import org.springframework.data.jpa.repository.EntityGraph;
 import ua.vspelykh.dairyfarm.model.AbstractBaseEntity;
 import ua.vspelykh.dairyfarm.model.record.Calving;
 import ua.vspelykh.dairyfarm.model.record.Insemination;
@@ -11,9 +13,14 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Set;
 
 @Entity
 @Table(name = "cows")
+@NamedEntityGraph(name = "cow.full",
+        attributeNodes = {@NamedAttributeNode("calvings"),
+        @NamedAttributeNode("inseminations"), @NamedAttributeNode("vaccinations")
+        })
 public class Cow extends AbstractBaseEntity {
 
     @Column(name = "number", nullable = false, unique = true)
@@ -45,8 +52,17 @@ public class Cow extends AbstractBaseEntity {
     @NotNull
     private boolean isInseminated;
 
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    private Farm farm;
+
     @OneToMany(mappedBy = "cow")
-    private Collection<Vaccination> vaccinations;
+    private Set<Vaccination> vaccinations;
+
+    @OneToMany(mappedBy = "cow")
+    private Set<Insemination> inseminations;
+
+    @OneToMany(mappedBy = "cow")
+    private Set<Calving> calvings;
 
     public Cow() {
     }
@@ -133,12 +149,6 @@ public class Cow extends AbstractBaseEntity {
                 '}';
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    private Farm farm;
-
-    @OneToMany(mappedBy = "cow")
-    private Collection<Insemination> inseminations;
-
     public Farm getFarm() {
         return farm;
     }
@@ -147,31 +157,29 @@ public class Cow extends AbstractBaseEntity {
         this.farm = farm;
     }
 
-    public Collection<Vaccination> getVaccinations() {
+    public Set<Vaccination> getVaccinations() {
         return vaccinations;
     }
 
-    public void setVaccinations(Collection<Vaccination> vaccinations) {
+    public void setVaccinations(Set<Vaccination> vaccinations) {
         this.vaccinations = vaccinations;
     }
 
 
-    public Collection<Insemination> getInseminations() {
+    public Set<Insemination> getInseminations() {
         return inseminations;
     }
 
-    public void setInseminations(Collection<Insemination> inseminations) {
+    public void setInseminations(Set<Insemination> inseminations) {
         this.inseminations = inseminations;
     }
 
-    @OneToMany(mappedBy = "cow")
-    private Collection<Calving> calvings;
 
-    public Collection<Calving> getCalvings() {
+    public Set<Calving> getCalvings() {
         return calvings;
     }
 
-    public void setCalvings(Collection<Calving> calvings) {
+    public void setCalvings(Set<Calving> calvings) {
         this.calvings = calvings;
     }
 }

@@ -52,6 +52,9 @@ public class User extends AbstractBaseEntity {
     @OneToMany(mappedBy = "user")
     private Collection<Insemination> inseminations;
 
+    @OneToMany(mappedBy = "user")
+    private Collection<Calving> calvings;
+
     public User() {
     }
 
@@ -129,9 +132,6 @@ public class User extends AbstractBaseEntity {
     public void setInseminations(Collection<Insemination> inseminations) {
         this.inseminations = inseminations;
     }
-
-    @OneToMany(mappedBy = "user")
-    private Collection<Calving> calvings;
 
     public Collection<Calving> getCalvings() {
         return calvings;

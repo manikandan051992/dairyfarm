@@ -15,4 +15,8 @@ public interface FarmRepository {
         boolean delete(int id);
 
         Farm getByEmail(String email);
+
+        Farm getByAddress(String address);
+
+        Farm getByOwner(String owner);
 }

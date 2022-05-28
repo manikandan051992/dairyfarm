@@ -38,4 +38,14 @@ public class FarmRepositoryImpl implements FarmRepository {
     public Farm getByEmail(String email) {
         return farmRepository.getByEmail(email);
     }
+
+    @Override
+    public Farm getByAddress(String address) {
+        return farmRepository.getByAddressLike(address);
+    }
+
+    @Override
+    public Farm getByOwner(String owner) {
+        return farmRepository.getByOwnerLike(owner);
+    }
 }

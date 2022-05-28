@@ -17,4 +17,8 @@ public interface CrudFarmRepository extends JpaRepository<Farm, Integer> {
     int delete(@Param("id") int id);
 
     Farm getByEmail(String email);
+
+    Farm getByAddressLike(String address);
+
+    Farm getByOwnerLike(String owner);
 }

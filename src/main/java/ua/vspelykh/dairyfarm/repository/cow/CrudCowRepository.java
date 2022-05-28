@@ -22,7 +22,8 @@ public interface CrudCowRepository extends JpaRepository<Cow, Integer> {
     @Query("DELETE FROM Cow c WHERE c.id=?1 AND  c.farm.id=?2")
     int delete(@Param("id") int id, @Param("farmId") int farmId);
 
-    @EntityGraph(attributePaths = {"inseminationList, calving, vaccines"}, type = EntityGraph.EntityGraphType.LOAD)
+
+    @EntityGraph(value = "cow.full", type = EntityGraph.EntityGraphType.LOAD)
     @Query("SELECT c FROM Cow c WHERE c.id=?1 AND c.farm.id=?2")
     Cow getCowWithFullInfo(int id, int farmId);
 

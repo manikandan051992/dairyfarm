@@ -6,6 +6,7 @@ import ua.vspelykh.dairyfarm.model.entity.Cow;
 import ua.vspelykh.dairyfarm.model.entity.User;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "vaccinations")
@@ -17,15 +18,18 @@ public class Vaccination extends AbstractRecord {
     private Vaccine vaccine;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "cow_id")
     private Cow cow;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id")
     private User user;
 
     public Vaccination() {
     }
 
-    public Vaccination(Vaccine vaccine) {
+    public Vaccination(LocalDateTime date, String comment, Vaccine vaccine) {
+        super(date, comment);
         this.vaccine = vaccine;
     }
 

@@ -15,10 +15,10 @@ public abstract class AbstractRecord extends AbstractBaseEntity {
 
     @Column(name = "date", nullable = false)
     @NotNull
-    private LocalDateTime date;
+    protected LocalDateTime date;
 
     @Column(name = "comment")
-    private String comment;
+    protected String comment;
 
 
 
@@ -41,4 +41,8 @@ public abstract class AbstractRecord extends AbstractBaseEntity {
     public AbstractRecord() {
     }
 
+    public AbstractRecord(LocalDateTime date, String comment) {
+        this.date = date;
+        this.comment = comment;
+    }
 }

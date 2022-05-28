@@ -20,7 +20,6 @@ public class Farm extends AbstractBaseEntity {
     @Size(max = 128)
     private String email;
 
-
     @Column(name = "address", nullable = false)
     @NotBlank
     @Size(max = 128)
