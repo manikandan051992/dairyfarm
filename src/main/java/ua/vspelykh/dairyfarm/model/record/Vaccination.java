@@ -57,4 +57,6 @@ public class Vaccination extends AbstractRecord {
     public void setUser(User user) {
         this.user = user;
     }
+
+
 }

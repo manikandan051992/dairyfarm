@@ -5,6 +5,7 @@ import ua.vspelykh.dairyfarm.model.AbstractBaseEntity;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.Collection;
+import java.util.Objects;
 
 @Entity
 @Table(name = "farms")
@@ -92,5 +93,19 @@ public class Farm extends AbstractBaseEntity {
 
     public void setCows(Collection<Cow> cows) {
         this.cows = cows;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Farm)) return false;
+        if (!super.equals(o)) return false;
+        Farm farm = (Farm) o;
+        return Objects.equals(name, farm.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), name);
     }
 }

@@ -1,8 +1,6 @@
 package ua.vspelykh.dairyfarm.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.validator.constraints.Range;
-import org.springframework.data.jpa.repository.EntityGraph;
 import ua.vspelykh.dairyfarm.model.AbstractBaseEntity;
 import ua.vspelykh.dairyfarm.model.record.Calving;
 import ua.vspelykh.dairyfarm.model.record.Insemination;
@@ -12,7 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
-import java.util.Collection;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -27,7 +25,7 @@ public class Cow extends AbstractBaseEntity {
     @Size(max = 8)
     private String number;
 
-    @Column(name = "birth", nullable = false, updatable = false)
+    @Column(name = "birth", nullable = false)
     @NotNull
     private LocalDateTime birth;
 
@@ -66,12 +64,46 @@ public class Cow extends AbstractBaseEntity {
 
     public Cow() {
     }
-
-    public Cow(String number, LocalDateTime birth, Integer section, boolean isMilking) {
+    public Cow(Integer id, String number, LocalDateTime birth, Integer section) {
+        super(id);
         this.number = number;
         this.birth = birth;
         this.section = section;
+        isMilking = false;
+        isAlive = true;
+        isInseminated = false;
+        lactation = 0;
+    }
+
+    public Cow(String number, LocalDateTime birth, Integer section) {
+        this.number = number;
+        this.birth = birth;
+        this.section = section;
+        isMilking = false;
+        isAlive = true;
+        isInseminated = false;
+        lactation = 0;
+    }
+
+    public Cow(String number, LocalDateTime birth, Integer section, Integer lactation, boolean isMilking, boolean isInseminated) {
+        isAlive = true;
+        this.number = number;
+        this.birth = birth;
+        this.section = section;
+        this.lactation = lactation;
         this.isMilking = isMilking;
+        this.isInseminated = isInseminated;
+    }
+
+    public Cow(Integer id, String number, LocalDateTime birth, Integer section, Integer lactation, boolean isMilking, boolean isInseminated) {
+        super(id);
+        isAlive = true;
+        this.number = number;
+        this.birth = birth;
+        this.section = section;
+        this.lactation = lactation;
+        this.isMilking = isMilking;
+        this.isInseminated = isInseminated;
     }
 
     public String getNumber() {
@@ -181,5 +213,19 @@ public class Cow extends AbstractBaseEntity {
 
     public void setCalvings(Set<Calving> calvings) {
         this.calvings = calvings;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Cow)) return false;
+        if (!super.equals(o)) return false;
+        Cow cow = (Cow) o;
+        return Objects.equals(number, cow.number);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), number);
     }
 }

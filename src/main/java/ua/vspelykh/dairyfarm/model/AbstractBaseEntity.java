@@ -44,4 +44,11 @@ public abstract class AbstractBaseEntity {
     public int hashCode() {
         return id == null ? 0 : id;
     }
+
+    protected AbstractBaseEntity() {
+    }
+
+    protected AbstractBaseEntity(Integer id) {
+        this.id = id;
+    }
 }

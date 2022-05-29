@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @MappedSuperclass
 @Access(AccessType.FIELD)
@@ -44,5 +45,19 @@ public abstract class AbstractRecord extends AbstractBaseEntity {
     public AbstractRecord(LocalDateTime date, String comment) {
         this.date = date;
         this.comment = comment;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof AbstractRecord)) return false;
+        if (!super.equals(o)) return false;
+        AbstractRecord that = (AbstractRecord) o;
+        return Objects.equals(date, that.date);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), date);
     }
 }
