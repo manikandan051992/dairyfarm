@@ -10,6 +10,8 @@ public interface InseminationRepository {
 
     List<Insemination> getAll(int cowId);
 
+    List<Insemination> getAllByFarmId(int farmId);
+
     Insemination save(Insemination insemination, int cowId);
 
     boolean delete(int id, int cowId);

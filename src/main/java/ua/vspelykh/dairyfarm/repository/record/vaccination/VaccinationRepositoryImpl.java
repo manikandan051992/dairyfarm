@@ -1,11 +1,13 @@
 package ua.vspelykh.dairyfarm.repository.record.vaccination;
 
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import ua.vspelykh.dairyfarm.model.record.Vaccination;
 import ua.vspelykh.dairyfarm.repository.cow.CrudCowRepository;
 
 import java.util.List;
 
+@Repository
 public class VaccinationRepositoryImpl implements VaccinationRepository{
 
     private final CrudVaccinationRepository vaccinationRepository;
@@ -26,6 +28,11 @@ public class VaccinationRepositoryImpl implements VaccinationRepository{
     @Override
     public List<Vaccination> getAll(int cowId) {
         return vaccinationRepository.getAll(cowId);
+    }
+
+    @Override
+    public List<Vaccination> getAllByFarmId(int farmId) {
+        return vaccinationRepository.getAllByFarmId(farmId);
     }
 
     @Transactional

@@ -16,6 +16,9 @@ public interface CrudCalvingRepository extends JpaRepository<Calving, Integer> {
     @Query("SELECT c FROM Calving c  WHERE c.cow.id=:cowId ORDER BY c.date DESC")
     List<Calving> getAll(@Param("cowId") int cowId);
 
+    @Query("SELECT c FROM Calving c WHERE c.cow.farm.id=:farmId")
+    List<Calving> getAllByFarmId(@Param("farmId") int farmId);
+
     @Modifying
     @Transactional
     @Query("DELETE FROM Calving c WHERE c.id=:id AND c.cow.id=:cowId")

@@ -15,6 +15,9 @@ public interface CrudInseminationRepository extends JpaRepository<Insemination, 
     @Query("SELECT i FROM Insemination i WHERE i.cow.id=:cowId ORDER BY i.date DESC")
     List<Insemination> getAll(@Param("cowId") int cowId);
 
+    @Query("SELECT i FROM Insemination i WHERE i.cow.farm.id=:farmId")
+    List<Insemination> getAllByFarmId(int farmId);
+
     @Modifying
     @Transactional
     @Query("DELETE FROM Insemination i WHERE i.id=:id AND i.cow.id=:cowId")

@@ -31,6 +31,11 @@ public class InseminationRepositoryImpl implements InseminationRepository {
         return inseminationRepository.getAll(cowId);
     }
 
+    @Override
+    public List<Insemination> getAllByFarmId(int farmId) {
+        return inseminationRepository.getAllByFarmId(farmId);
+    }
+
     @Transactional
     @Override
     public Insemination save(Insemination insemination, int cowId) {

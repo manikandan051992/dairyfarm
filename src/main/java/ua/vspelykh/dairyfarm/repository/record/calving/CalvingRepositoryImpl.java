@@ -31,6 +31,11 @@ public class CalvingRepositoryImpl implements CalvingRepository{
         return calvingRepository.getAll(cowId);
     }
 
+    @Override
+    public List<Calving> getAllByFarmId(int farmId) {
+        return calvingRepository.getAllByFarmId(farmId);
+    }
+
     @Transactional
     @Override
     public Calving save(Calving calving, int cowId) {

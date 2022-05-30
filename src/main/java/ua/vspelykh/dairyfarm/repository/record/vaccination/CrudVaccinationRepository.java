@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
+import ua.vspelykh.dairyfarm.model.record.Insemination;
 import ua.vspelykh.dairyfarm.model.record.Vaccination;
 
 import java.util.List;
@@ -14,6 +15,9 @@ public interface CrudVaccinationRepository extends JpaRepository<Vaccination, In
 
     @Query("SELECT v FROM Vaccination v WHERE v.cow.id=:cowId ORDER BY v.date DESC")
     List<Vaccination> getAll(@Param("cowId") int cowId);
+
+    @Query("SELECT v FROM Vaccination v WHERE v.cow.farm.id=:farmId")
+    List<Vaccination> getAllByFarmId(int farmId);
 
     @Modifying
     @Transactional
