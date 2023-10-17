@@ -1,6 +1,8 @@
 package ua.vspelykh.dairyfarm.config;
 
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 
@@ -20,6 +22,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.extras.java8time.dialect.Java8TimeDialect;
@@ -31,6 +34,8 @@ import org.thymeleaf.templatemode.TemplateMode;
 import org.thymeleaf.templateresolver.ITemplateResolver;
 
 import nz.net.ultraq.thymeleaf.LayoutDialect;
+import ua.vspelykh.dairyfarm.security.handler.*;
+import ua.vspelykh.dairyfarm.security.interceptor.SecurityInterceptor;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -38,7 +43,8 @@ import javax.sql.DataSource;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
-    private ApplicationContext applicationContext;
+
+    public ApplicationContext ctx;
 
 
 //    @Bean
@@ -64,12 +70,12 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
         return dataSource;
     }
 
-    private Properties additionalProperties() {
-        Properties properties = new Properties();
-        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
-
-        return properties;
-    }
+//    private Properties additionalProperties() {
+//        Properties properties = new Properties();
+//        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
+//
+//        return properties;
+//    }
 
 //    @Bean
 //    public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
@@ -93,9 +99,24 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware {
 //                .addResourceLocations("/webjars/");
 //    }
 
+    @Bean
+    SecurityInterceptor securityInterceptor(){
+        List<SecurityAnnotationHandler> handlers = new ArrayList<>();
+        handlers.add(new IsAdminHandler());
+        handlers.add(new IsOwnerHandler());
+        handlers.add(new IsOwnerOrOtherFarmRoleHandler());
+        handlers.add(new IsUserHandler());
+        return new SecurityInterceptor(handlers);
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(securityInterceptor());
+    }
+
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        this.applicationContext = applicationContext;
+        this.ctx = applicationContext;
     }
 
 //    @Bean

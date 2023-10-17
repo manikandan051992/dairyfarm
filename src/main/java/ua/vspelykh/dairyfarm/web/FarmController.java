@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ua.vspelykh.dairyfarm.model.entity.Farm;
+import ua.vspelykh.dairyfarm.model.entity.Role;
+import ua.vspelykh.dairyfarm.security.annotation.IsAdmin;
+import ua.vspelykh.dairyfarm.security.annotation.IsOwnerOrOtherFarmRole;
 import ua.vspelykh.dairyfarm.service.CowService;
 import ua.vspelykh.dairyfarm.service.FarmService;
 import ua.vspelykh.dairyfarm.service.UserService;
@@ -27,6 +30,7 @@ public class FarmController {
         this.userService = userService;
     }
 
+    @IsAdmin
     @GetMapping("farms")
     public String farms(Model model){
         List<Farm> all = farmService.getAll();
@@ -34,6 +38,7 @@ public class FarmController {
         return "farms";
     }
 
+    @IsOwnerOrOtherFarmRole({Role.OWNER, Role.VET, Role.USER})
     @GetMapping("farm")
     public String farm(Model model){
         model.addAttribute("farm", farmService.get(SecurityUtil.getAuthFarmId()));
